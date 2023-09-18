@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bopyxrp2it2l1"]
+
+[ext_resource type="PackedScene" uid="uid://cfni4735d1isv" path="res://camera/camera.tscn" id="1_a16fr"]
+[ext_resource type="Script" path="res://scripts/observer.gd" id="1_p0c34"]
+[ext_resource type="PackedScene" uid="uid://b8e8tcly5pq0u" path="res://entities/platform/platform.tscn" id="2_cwycx"]
+
+[sub_resource type="Environment" id="Environment_47k5w"]
+
+[node name="Arena" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.95095, 0.712523, -1.50936)
+script = ExtResource("1_p0c34")
+
+[node name="Camera" parent="." instance=ExtResource("1_a16fr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.06277, 0)
+
+[node name="D_Light" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.258819, 4.2222e-08, -0.965926, 0.965926, -1.13133e-08, 0.258819, 0, -1, -4.37114e-08, -27, 7.7913, 4)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_47k5w")
+
+[node name="Platform" parent="." instance=ExtResource("2_cwycx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.76654, 0.759687, 1.26073)
+
+[node name="Platform2" parent="." instance=ExtResource("2_cwycx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.76654, 0.759687, 3.43134)
