@@ -22,7 +22,7 @@ transform = Transform3D(0.920789, -0.194655, -0.33802, 0.387508, 0.357497, 0.849
 environment = SubResource("Environment_47k5w")
 
 [node name="Camera" parent="Environment" instance=ExtResource("1_a16fr")]
-Distance = Vector3(2, 8, 2)
+Distance = 4
 Target = NodePath("../Tile")
 
 [node name="Tile" parent="Environment" instance=ExtResource("4_ywrwr")]

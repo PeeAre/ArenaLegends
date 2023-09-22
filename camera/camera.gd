@@ -4,7 +4,7 @@ class_name Camera
 const Handler = preload("res://camera/handler.gd")
 const RAY_LENGTH = 1000
 
-@export var Distance: Vector3 = Vector3(0, 0, 0)
+@export var Distance: int = 2
 @export var Target: NodePath
 
 signal mouseover(area_id: int)
@@ -15,6 +15,7 @@ var camera: Camera3D
 var mouseMovement: Vector2i
 var covered_area_id: int = 0
 var grid_size: Vector2i
+var old_position: Vector3
 
 
 func _ready():
@@ -22,27 +23,33 @@ func _ready():
 	handler = Handler.Handler.new()
 	target = get_node(Target) as Node3D
 	camera = $Camera3D as Camera3D
-	rotate_x(-PI/4)
 	rotate_y(PI/4)
-	camera.transform.origin = Distance
-	position = target.position
+	camera.rotate_x(-PI/4)
+	transform.orthonormalized()
+	camera.transform.orthonormalized()
+	position = target.position * Vector3(1, 0, 1)
+	camera.position.z = pow(Distance, 0.5)
+	camera.position.y = pow(Distance, 0.5) + target.position.y
 
 func _physics_process(delta):
-	var normalizedBasis = get_parent().transform.basis.rotated(Vector3.UP, PI/4)
-	position += transform.basis.x * mouseMovement.x * 0.2
-	position += normalizedBasis.z * mouseMovement.y * 0.2
+	position += transform.basis.x * mouseMovement.x * 0.1
+	position += transform.basis.z * mouseMovement.y * 0.1
 	
-	if global_position.x < 0.5:
-		global_position.x = 0.5
+	if global_position.x < 0:
+		global_position.x = 0
 
-	if global_position.x > grid_size.x-0.5:
-		global_position.x = grid_size.x-0.5
+	if global_position.x > grid_size.x - pow(Distance, 0.5) + 1:
+		global_position.x = grid_size.x - pow(Distance, 0.5) + 1
 
-	if global_transform.origin.z < 0.5:
-		global_transform.origin.z = 0.5
+	if global_position.z < 0:
+		global_position.z = 0
 		
-	if global_transform.origin.z > grid_size.y-0.5:
-		global_transform.origin.z = grid_size.y-0.5
+	if global_position.z > grid_size.y - pow(Distance, 0.5) + 1:
+		global_position.z = grid_size.y - pow(Distance, 0.5) + 1
+	
+	if old_position != global_transform.origin:
+		print("POS", position)
+		old_position = global_transform.origin
 	
 	var space_state = get_world_3d().direct_space_state
 	var mousepos = get_viewport().get_mouse_position()
@@ -68,4 +75,4 @@ func _physics_process(delta):
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouse:
-		mouseMovement = handler.mouse_handle(self, event as InputEventMouse, get_viewport().size)
+		mouseMovement = handler.mouse_handle(camera, event as InputEventMouse, get_viewport().size)
