@@ -24,12 +24,12 @@ class Handler:
 		
 		if event is InputEventMouseButton:
 			if event.is_action_pressed("scroll_up"):
-				if camera.position.y > 1:
-					camera.position -= camera.transform.basis.z * 0.5
+				if camera.global_transform.origin.y > 2:
+					camera.global_transform.origin -= camera.transform.basis.z * 0.5
 			
 			if event.is_action_pressed("scroll_down"):
-				if camera.position.y < 8:
-					camera.position += camera.transform.basis.z * 0.5
+				if camera.global_transform.origin.y < 6:
+					camera.global_transform.origin += camera.transform.basis.z * 0.5
 		
 		return coordinates
 	
