@@ -15,7 +15,6 @@ var camera: Camera3D
 var mouseMovement: Vector2i
 var covered_area_id: int = 0
 var grid_size: Vector2i
-var qwe = true
 
 
 func _ready():
@@ -25,38 +24,25 @@ func _ready():
 	camera = $Camera3D as Camera3D
 	rotate_x(-PI/4)
 	rotate_y(PI/4)
-	camera.global_transform.origin = target.global_transform.origin + Distance
+	camera.transform.origin = Distance
+	position = target.position
 
 func _physics_process(delta):
 	var normalizedBasis = get_parent().transform.basis.rotated(Vector3.UP, PI/4)
 	position += transform.basis.x * mouseMovement.x * 0.2
 	position += normalizedBasis.z * mouseMovement.y * 0.2
 	
-	if global_position.x < 0:
-		global_position.x = 0
-		qwe = true
+	if global_position.x < 0.5:
+		global_position.x = 0.5
 
-	if position.x > 8:
-		position.x = 8
-		qwe = true
-	
-	
+	if global_position.x > grid_size.x-0.5:
+		global_position.x = grid_size.x-0.5
 
-	if global_transform.origin.z < -4:
-		global_transform.origin.z = -4
-		qwe = true
+	if global_transform.origin.z < 0.5:
+		global_transform.origin.z = 0.5
 		
-		
-
-	if global_transform.origin.z > grid_size.y - 7:
-		global_transform.origin.z = grid_size.y - 7
-		qwe = true
-		
-		
-	if qwe:
-		print("loacal: ", position)
-		print("gloabal: ", global_position)
-		qwe = false
+	if global_transform.origin.z > grid_size.y-0.5:
+		global_transform.origin.z = grid_size.y-0.5
 	
 	var space_state = get_world_3d().direct_space_state
 	var mousepos = get_viewport().get_mouse_position()

@@ -9,17 +9,11 @@
 background_mode = 1
 
 [node name="Arena" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.95095, 0.712523, -1.50936)
 script = ExtResource("1_p0c34")
 
 [node name="Environment" type="Node3D" parent="."]
 script = ExtResource("2_5rmw8")
 GridSize = Vector2i(8, 8)
-
-[node name="Camera" parent="Environment" instance=ExtResource("1_a16fr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.95095, 5.77529, -1.50936)
-Distance = Vector3(2, 4, 2)
-Target = NodePath("../../Tile")
 
 [node name="D_Light" type="DirectionalLight3D" parent="Environment"]
 transform = Transform3D(0.920789, -0.194655, -0.33802, 0.387508, 0.357497, 0.849726, -0.044562, -0.913403, 0.404609, -1.6207, 9.87492, 5.24465)
@@ -27,5 +21,9 @@ transform = Transform3D(0.920789, -0.194655, -0.33802, 0.387508, 0.357497, 0.849
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_47k5w")
 
-[node name="Tile" parent="." instance=ExtResource("4_ywrwr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.38429, 0.81796, 0.595087)
+[node name="Camera" parent="Environment" instance=ExtResource("1_a16fr")]
+Distance = Vector3(2, 8, 2)
+Target = NodePath("../Tile")
+
+[node name="Tile" parent="Environment" instance=ExtResource("4_ywrwr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, 2)

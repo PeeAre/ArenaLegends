@@ -24,7 +24,7 @@ class Handler:
 		
 		if event is InputEventMouseButton:
 			if event.is_action_pressed("scroll_up"):
-				if camera.global_transform.origin.y > 2:
+				if camera.global_transform.origin.y > 0:
 					camera.global_transform.origin -= camera.transform.basis.z * 0.5
 			
 			if event.is_action_pressed("scroll_down"):

@@ -20,8 +20,8 @@ func init_camera() -> void:
 
 func generate_grid() -> void:
 	var coordinates: Vector2 = Vector2.ZERO
-	for y in range(0, 1, tile_size):
-		for x in range(0, 1, tile_size):
+	for y in range(0, grid_size.y, tile_size):
+		for x in range(0, grid_size.x, tile_size):
 			var tile = tile_scene.instantiate() as Node3D
 			add_child(tile)
 			tile.global_translate(Vector3(x, 0, y))
