@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfni4735d1isv"]
+
+[ext_resource type="Script" path="res://scripts/camera/camera.gd" id="1_osdur"]
+
+[node name="Camera" type="Node3D"]
+script = ExtResource("1_osdur")
+
+[node name="Camera3D" type="Camera3D" parent="."]

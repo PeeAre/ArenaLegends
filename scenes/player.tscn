@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://fto3unfk2dac"]
+
+[ext_resource type="ArrayMesh" uid="uid://cyv8gpgots26" path="res://assets/characters/player/player.obj" id="1_3g4w1"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0xvas"]
+
+[node name="Player" type="CharacterBody3D"]
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_3g4w1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_0xvas")
