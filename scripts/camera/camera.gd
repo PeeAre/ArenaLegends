@@ -89,6 +89,20 @@ func _input(event: InputEvent) -> void:
 					else:
 						pressed_area_id = 0
 						mouse_left_pressed.emit(pressed_area_id)
-						mouse_hovered.emit(hovered_area_id)
-		
+						mouse_hovered.emit(hovered_area_id)	
 		mouse_movement_direction = handler.mouse_handle(camera, event as InputEventMouse, scroll_range, get_viewport().size)
+	else :
+		if event is InputEventKey:
+			if event.pressed and event.keycode == KEY_ESCAPE:
+				get_tree().quit()
+
+func _process(delta):
+	mouse_movement_direction = Vector2i.ZERO
+	if Input.is_action_pressed("move_right"):
+		mouse_movement_direction = Vector2i.RIGHT
+	if Input.is_action_pressed("move_back"):
+		mouse_movement_direction = Vector2i.DOWN
+	if Input.is_action_pressed("move_left"):
+		mouse_movement_direction = Vector2i.LEFT
+	if Input.is_action_pressed("move_forward"):
+		mouse_movement_direction = Vector2i.UP
