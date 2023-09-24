@@ -1,45 +1,37 @@
 extends Entity
 class_name Player
 
-@export var Speed: float = 8
-@export var Gravity: float = 10
+const gravity: float = 10
 
-var player
-var vector_to_change: Vector3
-var position_to_change: Vector3
-var min_to_change: Vector3 = Vector3.ZERO
-var rotation_y: float = 0
-var direction: Vector3 = Vector3.ZERO
-var motions: Dictionary = {
-	"move_forward": Vector3.FORWARD,
-	"move_back": Vector3.BACK,
-	"move_left": Vector3.LEFT,
-	"move_right": Vector3.RIGHT,
-}
+var player: CharacterBody3D = null
+var target_position: Vector3 = Vector3.ZERO
+var target_vector: Vector3 = Vector3.ZERO
+var current_vector: Vector3 = Vector3.ZERO
 
 
 func _ready() -> void:
-	vector_to_change = -transform.basis.z
-	EventBus.tile_selected.connect(_if_signal_move)
+	expected_signals["tile_selected"] = _if_signal_move
 	player = $Body
-	position = Vector3(3, 0, 2)
+	position = Hub.palyer_spawn_position
+	current_vector = transform.basis.z
 
-func _physics_process(delta):
-	player.velocity = Gravity * Vector3.DOWN
-	
-	var deg_cos = vector_to_change.normalized().dot(transform.basis.z.normalized())
+func _physics_process(delta) -> void:
+	var deg_cos = target_vector.normalized().dot(transform.basis.z.normalized())
+	player.velocity = gravity * Vector3.DOWN
 	
 	if deg_cos > -0.98:
 		transform.basis = Basis(Quaternion(transform.basis)
-				.slerp(Quaternion(Basis.looking_at(vector_to_change, Vector3.UP)), 5 * delta))
-	elif vector_to_change.length() - min_to_change.length() > 0.02:
-		transform.basis = Basis.looking_at(vector_to_change, Vector3.UP)
-		position += vector_to_change * 0.03
-		min_to_change += vector_to_change * 0.03
+				.slerp(Quaternion(Basis.looking_at(target_vector, Vector3.UP)), 5 * delta))
+	elif target_vector.length() - current_vector.length() > 0.02:
+		transform.basis = Basis.looking_at(target_vector, Vector3.UP)
+		position += target_vector * 0.2 * Hub.arena.playerSpeed * delta
+		current_vector += target_vector * 0.2 * Hub.arena.playerSpeed * delta
+	elif position != target_position:
+		position = target_position
 	
 	player.move_and_slide()
 
 func _if_signal_move(vec: Vector3) -> void:
-	vector_to_change = vec - position
-	position_to_change = vec
-	min_to_change = Vector3.ZERO
+	target_vector = vec - position
+	target_position = vec
+	current_vector = Vector3.ZERO
