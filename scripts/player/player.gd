@@ -1,12 +1,13 @@
-extends CharacterBody3D
+extends Entity
 class_name Player
-
-const Handler = preload("res://player/handler.gd")
 
 @export var Speed: float = 8
 @export var Gravity: float = 10
 
-var handler
+var player
+var vector_to_change: Vector3
+var position_to_change: Vector3
+var min_to_change: Vector3 = Vector3.ZERO
 var rotation_y: float = 0
 var direction: Vector3 = Vector3.ZERO
 var motions: Dictionary = {
@@ -18,27 +19,27 @@ var motions: Dictionary = {
 
 
 func _ready() -> void:
-	handler = Handler.Handler.new()
-
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		handler.key_handle(self, event as InputEventKey)
-	
-	if event is InputEventMouse:
-		handler.mouse_handle(self, event as InputEventMouse)
-
+	vector_to_change = -transform.basis.z
+	EventBus.tile_selected.connect(_if_signal_move)
+	player = $Body
+	position = Vector3(3, 0, 2)
 
 func _physics_process(delta):
-	velocity = Gravity * Vector3.DOWN
+	player.velocity = Gravity * Vector3.DOWN
 	
-	if direction != Vector3.ZERO:
-		velocity.x = direction.normalized().x * Speed
-		velocity.z = direction.normalized().z * Speed
-		velocity = velocity.rotated(Vector3.UP, rotation_y)
+	var deg_cos = vector_to_change.normalized().dot(transform.basis.z.normalized())
+	
+	if deg_cos > -0.98:
 		transform.basis = Basis(Quaternion(transform.basis)
-			.slerp(Quaternion(Basis.looking_at(Vector3(velocity.x, 0, velocity.z), Vector3.UP)), 10 * delta))
+				.slerp(Quaternion(Basis.looking_at(vector_to_change, Vector3.UP)), 5 * delta))
+	elif vector_to_change.length() - min_to_change.length() > 0.02:
+		transform.basis = Basis.looking_at(vector_to_change, Vector3.UP)
+		position += vector_to_change * 0.03
+		min_to_change += vector_to_change * 0.03
 	
-		print(position.y)
-	
-	move_and_slide()
+	player.move_and_slide()
+
+func _if_signal_move(vec: Vector3) -> void:
+	vector_to_change = vec - position
+	position_to_change = vec
+	min_to_change = Vector3.ZERO

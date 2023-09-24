@@ -1,5 +1,6 @@
 shader_type spatial;
 render_mode unshaded;
+uniform bool hovered;
 uniform bool selected;
 
 
@@ -18,8 +19,13 @@ void fragment() {
 		is_border = true;
 	}
 	
-	if(selected && is_border) {
+	if(hovered && is_border) {
 		ALBEDO = vec3(0.0, 0.0, 1.0);
+		ALPHA = 0.8;
+	}
+	
+	if(selected && is_border) {
+		ALBEDO = vec3(0.0, 1.0, 0.0);
 		ALPHA = 0.8;
 	}
 }

@@ -1,13 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://fto3unfk2dac"]
+[gd_scene load_steps=4 format=3 uid="uid://fto3unfk2dac"]
 
-[ext_resource type="ArrayMesh" uid="uid://cyv8gpgots26" path="res://assets/characters/player/player.obj" id="1_3g4w1"]
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_g0f2q"]
+[ext_resource type="PackedScene" uid="uid://youbf6xehls5" path="res://scenes/robot.tscn" id="1_jum4n"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0xvas"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_q1v1y"]
+size = Vector3(1, 1.6, 1)
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="Node3D"]
+script = ExtResource("1_g0f2q")
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_3g4w1")
+[node name="Body" type="CharacterBody3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_0xvas")
+[node name="3DGodotRobot" parent="Body" instance=ExtResource("1_jum4n")]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("BoxShape3D_q1v1y")

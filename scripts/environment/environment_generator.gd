@@ -1,18 +1,17 @@
 class EnvironmentGenerator:
-	
 	var tile_scene: PackedScene = preload("res://scenes/tile.tscn")
-	var arena: Arena = null
 	var tile_size: Vector3 = Vector3.ZERO
 	var grid_size: Vector2i = Vector2i.ZERO
 	
 	
-	func _init(arena: Arena) -> void:
-		self.arena = arena
-		self.grid_size = arena.GridSize
+	func _init() -> void:
 		self.tile_size = (tile_scene.instantiate() as Tile).get_size()
-		generate_grid()
+		self.grid_size = Hub.arena.gridSize
+		
+		generate_grid(Hub.arena)
+		create_camera()
 	
-	func generate_grid() -> void:
+	func generate_grid(arena: Arena) -> void:
 		var coordinates: Vector2 = Vector2.ZERO
 		
 		for y in range(0, grid_size.y, tile_size.x):
@@ -21,3 +20,8 @@ class EnvironmentGenerator:
 				
 				arena.add_child(tile)
 				tile.translate(Vector3(x, 0, y))
+	
+	func create_camera() -> void:
+		var camera: Camera = preload("res://scenes/camera.tscn").instantiate()
+		Hub.arena.add_child(camera)
+		Hub.camera = camera

@@ -9,5 +9,6 @@ func subscribe(target_signal: Signal) -> void:
 		
 		for key in expected_signals:
 			if key == signal_name:
+				print(self is Player)
 				target_signal.connect(expected_signals[key])
 				break

@@ -16,10 +16,18 @@ class Storage:
 				
 				if !property_list.is_empty():
 					for property in property_list:
-						signals.append(node.get(property.name))
+						if unique_signals(signals, node.get(property.name)):
+							signals.append(node.get(property.name))
 	
 	func find_arena() -> void:
 		for node in self.entities:
 			if node is Arena:
 				arena = node
 				return
+	
+	func unique_signals(signals: Array, sig: Signal) -> bool:
+		for s in signals:
+			if s.get_name() == sig.get_name():
+				return false
+		
+		return true

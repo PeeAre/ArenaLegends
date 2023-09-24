@@ -1,52 +1,62 @@
 extends Entity
 class_name Camera
 
-const Handler = preload("res://scripts/camera/handler.gd")
-const RAY_LENGTH = 1000
+signal mouse_hovered(area_id: int)
+signal mouse_left_pressed(area_id: int)
 
-@export var distance: float = 2.5
-@export var scrollRange: Vector2 = Vector2(2, 4)
-@export var target: NodePath
+const RAY_LENGTH = 32
+const CAMERA_HANDLER_TYPE = preload("res://scripts/camera/camera_handler.gd").CameraHandler
 
-signal mouseover(area_id: int)
+var camera: Camera3D = null
+var handler: CAMERA_HANDLER_TYPE = null
+var mouse_movement_direction: Vector2i = Vector2i.ZERO
+var hovered_area_id: int = 0
+var pressed_area_id: int = 0
 
-var handler
-var target_position: Vector3 = Vector3.ZERO
-var camera: Camera3D
-var mouseMovement: Vector2i
-var covered_area_id: int = 0
-var grid_size: Vector2i
+var scroll_range: Vector2 = Vector2(2, 4)
+var grid_size: Vector2i = Vector2i.ZERO
+var distance_from_target: float = 2.5
+var initial_observation_target: Node3D = null
 
+var ray_collision_checking_result
 
-func _ready():
-	grid_size = get_parent().get("GridSize")
-	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
-	handler = Handler.Handler.new()
-	target_position = (get_node(target) as Node3D).position
+func _ready() -> void:
+	scroll_range = Hub.arena.scrollRange
+	grid_size = Hub.arena.gridSize
+	distance_from_target = Hub.arena.distanceFromTarget
+	initial_observation_target = Hub.arena.get_node(Hub.arena.initialObservationTarget)
+	
 	camera = $Camera3D as Camera3D
+	handler = CAMERA_HANDLER_TYPE.new()
+	self.grid_size = grid_size
+	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	
+	var target_position = initial_observation_target.position
+	
 	rotate_y(PI/4)
 	camera.rotate_x(-PI/4)
 	transform.orthonormalized()
 	camera.transform.orthonormalized()
+	
 	position = target_position * Vector3(1, 0, 1)
-	camera.position.z = pow(distance, 0.5)
-	camera.position.y = pow(distance, 0.5) + target_position.y
+	camera.position.z = pow(distance_from_target, 0.5)
+	camera.position.y = pow(distance_from_target, 0.5) + target_position.y
 
 func _physics_process(delta):
-	position += transform.basis.x * mouseMovement.x * 0.1
-	position += transform.basis.z * mouseMovement.y * 0.1
+	position += transform.basis.x * mouse_movement_direction.x * 0.1
+	position += transform.basis.z * mouse_movement_direction.y * 0.1
 	
 	if global_position.x < 0:
 		global_position.x = 0
 
-	if global_position.x > grid_size.x - pow(distance, 0.5) + 1:
-		global_position.x = grid_size.x - pow(distance, 0.5) + 1
+	if global_position.x > grid_size.x - pow(distance_from_target, 0.5) + 1:
+		global_position.x = grid_size.x - pow(distance_from_target, 0.5) + 1
 
 	if global_position.z < 0:
 		global_position.z = 0
 
-	if global_position.z > grid_size.y - pow(distance, 0.5) + 1:
-		global_position.z = grid_size.y - pow(distance, 0.5) + 1
+	if global_position.z > grid_size.y - pow(distance_from_target, 0.5) + 1:
+		global_position.z = grid_size.y - pow(distance_from_target, 0.5) + 1
 	
 	var space_state = get_world_3d().direct_space_state
 	var mousepos = get_viewport().get_mouse_position()
@@ -56,19 +66,29 @@ func _physics_process(delta):
 	var query = PhysicsRayQueryParameters3D.create(origin, end, 8)
 	query.collide_with_areas = true
 	
-	var result = space_state.intersect_ray(query)
+	ray_collision_checking_result = space_state.intersect_ray(query)
 	
-	
-	if !result.is_empty():
-		var area_id = result["collider_id"]
+	if !ray_collision_checking_result.is_empty():
+		var area_id = ray_collision_checking_result["collider_id"]
 		
-		if covered_area_id != area_id:
-			mouseover.emit(area_id)
-			covered_area_id = area_id
-	elif covered_area_id != 0:
-		covered_area_id = 0
-		mouseover.emit(covered_area_id)
+		if hovered_area_id != area_id:
+			mouse_hovered.emit(area_id)
+			hovered_area_id = area_id
+	elif hovered_area_id != 0:
+		hovered_area_id = 0
+		mouse_hovered.emit(hovered_area_id)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouse:
-		mouseMovement = handler.mouse_handle(camera, event as InputEventMouse, scrollRange, get_viewport().size)
+		if event is InputEventMouseButton:
+			if !ray_collision_checking_result.is_empty():
+				if event.is_action_pressed("left_mouse_button"):
+					if hovered_area_id != pressed_area_id:
+						mouse_left_pressed.emit(hovered_area_id)
+						pressed_area_id = hovered_area_id
+					else:
+						pressed_area_id = 0
+						mouse_left_pressed.emit(pressed_area_id)
+						mouse_hovered.emit(hovered_area_id)
+		
+		mouse_movement_direction = handler.mouse_handle(camera, event as InputEventMouse, scroll_range, get_viewport().size)
