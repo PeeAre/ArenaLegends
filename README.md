@@ -1,2 +1,2 @@
 # ArenaLegends
-Entertainment multifunctional platform
+Entertainment platform game
