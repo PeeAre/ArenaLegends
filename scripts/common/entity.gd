@@ -3,12 +3,10 @@ class_name Entity
 
 var expected_signals: Dictionary = {}
 
-func subscribe(target_signal: Signal) -> void:
+func subscribe() -> void:
 	if !expected_signals.is_empty():
-		var signal_name = target_signal.get_name()
-		
-		for key in expected_signals:
-			if key == signal_name:
-				print(self is Player)
-				target_signal.connect(expected_signals[key])
-				break
+		for sig in EventBus.get_all_signals():
+			for key in expected_signals:
+				if key == sig.get_name():
+					sig.connect(expected_signals[key])
+					break

@@ -1,21 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://bopyxrp2it2l1"]
+[gd_scene load_steps=3 format=3 uid="uid://bopyxrp2it2l1"]
 
 [ext_resource type="Script" path="res://scripts/arena/arena.gd" id="1_jss11"]
-[ext_resource type="PackedScene" uid="uid://fto3unfk2dac" path="res://scenes/player.tscn" id="5_o3jid"]
 
 [sub_resource type="Environment" id="Environment_47k5w"]
 background_mode = 1
 
 [node name="Arena" type="Node3D"]
 script = ExtResource("1_jss11")
-gridSize = Vector2i(4, 4)
-initialObservationTarget = NodePath("Player")
 
-[node name="D_Light" type="DirectionalLight3D" parent="."]
+[node name="Light" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.925105, 0.115147, 0.36183, -0.377087, 0.39043, 0.839863, -0.044562, -0.913403, 0.40461, 3.06581, 9.87492, 10.0697)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_47k5w")
-
-[node name="Player" parent="." instance=ExtResource("5_o3jid")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2, 0, 2)

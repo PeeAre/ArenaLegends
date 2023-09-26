@@ -2,13 +2,12 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dnhyphx1rp6ec"
+uid="uid://dq06g2twwy3yd"
 path.s3tc="res://.godot/imported/tile_DefaultMaterial_BaseColor.png-9f39070aeab2298bb62b72a5c58ae607.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={}
 
 [deps]
 

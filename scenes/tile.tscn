@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/tile/tile.gd" id="1_2epi8"]
 [ext_resource type="Shader" path="res://shaders/tile/tile_grid.gdshader" id="1_6xbi6"]
-[ext_resource type="Texture2D" uid="uid://dckmehwe08ml1" path="res://assets/textures/tile/stone/normal_stone.png" id="2_b7eb2"]
+[ext_resource type="Texture2D" uid="uid://pv2w066aa8ch" path="res://assets/textures/tile/stone/normal_stone.png" id="2_b7eb2"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_mhr4j"]
 resource_local_to_scene = true
