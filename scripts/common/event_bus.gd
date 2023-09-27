@@ -1,8 +1,11 @@
 extends Node
 
+signal object_selected(vec: Vector3)
 signal tile_selected(vec: Vector3)
 signal mouse_hovered(area_id: int)
-signal mouse_left_pressed(area_id: int)
+signal mouse_button_pressed(button: int)
+signal device_moved(direction: Vector2i)
+signal device_scrolled(action: String)
 
 func get_all_signals() -> Array[Signal]:
 	var signals: Array[Signal] = []
