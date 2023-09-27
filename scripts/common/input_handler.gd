@@ -19,6 +19,7 @@ func _input(event: InputEvent) -> void:
 
 func handle_keyboard_event(event: InputEventKey) -> void:
 	emit_keyboard_motion(event)
+	emit_keyboard_pause_pressed(event)
 
 func emit_keyboard_motion(event: InputEventKey) -> void:
 	for motion in motions:
@@ -28,6 +29,10 @@ func emit_keyboard_motion(event: InputEventKey) -> void:
 			old_keyboard_motion_direction -= motions[motion]
 	
 	EventBus.device_moved.emit(old_keyboard_motion_direction)
+
+func emit_keyboard_pause_pressed(event: InputEventKey) -> void:
+	if event.is_action_pressed("pause"):
+		EventBus.pause_button_pressed.emit()
 
 func handle_mouse_event(event: InputEventMouse) -> void:
 		if event is InputEventMouseMotion:
