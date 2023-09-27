@@ -1,7 +1,7 @@
 extends Node
 
-var grid = null
-var environment_manager = null
+var grid: Grid = null
+var environment_manager: EnvironmentManager = null
 var entities: Array[Entity] = []
 var arena: Arena = null
 var camera: Camera = null
@@ -9,11 +9,12 @@ var player: Player = null
 var tile_size: Vector3 = Vector3.ZERO
 var palyer_spawn_position: Vector3 = Vector3(1, 0, 2)
 
+
 func init_this_fucking_world(arena: Arena) -> void:
 	self.arena = arena
-	grid = preload("res://scripts/common/grid.gd").Grid.new()
-	environment_manager = preload("res://scripts/common/environment_manager.gd").EnvironmentManager.new()
-	print(grid.grid)
+	grid = Grid.new()
+	environment_manager = EnvironmentManager.new()
+	environment_manager.initialize_enironment()
 	find_all_entities()
 	subscribe_all()
 
