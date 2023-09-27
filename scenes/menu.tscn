@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://b61v0kpr1041y"]
+
+[ext_resource type="Script" path="res://scripts/menu/menu.gd" id="1_ujdlw"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ujdlw")
+
+[node name="Exit" type="Button" parent="."]
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 160.0
+text = "Exit"
+
+[connection signal="pressed" from="Exit" to="." method="_if_signal_exit_pressed"]
