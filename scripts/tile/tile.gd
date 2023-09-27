@@ -7,8 +7,13 @@ var is_selected: bool = false
 
 
 func _ready():
+<<<<<<< HEAD
 	expected_signals["mouse_hovered"] = _if_mouse_hovered
 	expected_signals["object_selected"] = _if_signal_object_selected
+=======
+	expected_signals["mouse_hovered"] = _if_signal_highlight
+	expected_signals["mouse_left_pressed"] = _if_signal_select
+>>>>>>> development
 	area_collider_id = ($AreaMesh/AreaCollider as Area3D).get_instance_id()
 	material = ($AreaMesh as MeshInstance3D).get_active_material(0)
 

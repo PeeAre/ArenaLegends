@@ -1,1 +1,5 @@
 class CameraHandler:
+<<<<<<< HEAD
+=======
+	
+>>>>>>> development
