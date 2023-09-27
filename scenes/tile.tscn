@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://scripts/tile/tile.gd" id="1_2epi8"]
 [ext_resource type="Shader" path="res://shaders/tile/tile_grid.gdshader" id="1_6xbi6"]
-[ext_resource type="Texture2D" uid="uid://pv2w066aa8ch" path="res://assets/textures/tile/stone/normal_stone.png" id="2_b7eb2"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_mhr4j"]
 resource_local_to_scene = true
@@ -21,9 +20,12 @@ size = Vector3(1, 0.2, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_bvfy2"]
 size = Vector3(1, 0.5, 1)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_07ost"]
+load_path = "res://.godot/imported/normal_stone.png-852825a2585bacb6ff45079a80b235f7.ctex"
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nnydu"]
 albedo_color = Color(0.4, 0.4, 0.4, 1)
-normal_texture = ExtResource("2_b7eb2")
+normal_texture = SubResource("CompressedTexture2D_07ost")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fqsag"]
 size = Vector3(1, 0.5, 1)
