@@ -1,9 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://bopyxrp2it2l1"]
+[gd_scene load_steps=15 format=3 uid="uid://syq1se7pe3pw"]
 
 [ext_resource type="Script" path="res://scripts/arena/arena.gd" id="1_jss11"]
+[ext_resource type="Script" path="res://scripts/user_interface/buttons/UI_button_action.gd" id="2_2sb5b"]
+[ext_resource type="Script" path="res://scripts/user_interface/user_interface.gd" id="2_vo832"]
+[ext_resource type="Script" path="res://scripts/user_interface/buttons/UI_button_move.gd" id="3_pdbjn"]
+[ext_resource type="Script" path="res://scripts/user_interface/buttons/UI_button_shoot.gd" id="4_xlehx"]
 
 [sub_resource type="Environment" id="Environment_47k5w"]
 background_mode = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_niqn7"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pvqhy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tkq4u"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_df8ub"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5p4xu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ydgyx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pm7he"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ruc3t"]
 
 [node name="Arena" type="Node3D"]
 script = ExtResource("1_jss11")
@@ -13,3 +35,52 @@ transform = Transform3D(0.925105, 0.115147, 0.36183, -0.377087, 0.39043, 0.83986
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_47k5w")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_vo832")
+
+[node name="Action2" type="Button" parent="Control"]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_niqn7")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pvqhy")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_pvqhy")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_pvqhy")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pvqhy")
+text = "Action"
+script = ExtResource("2_2sb5b")
+
+[node name="Move" type="Button" parent="Control"]
+layout_mode = 0
+offset_top = 72.0
+offset_right = 64.0
+offset_bottom = 136.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_tkq4u")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_df8ub")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_5p4xu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ydgyx")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ydgyx")
+text = "Move"
+script = ExtResource("3_pdbjn")
+
+[node name="Shoot" type="Button" parent="Control"]
+layout_mode = 0
+offset_top = 144.0
+offset_right = 64.0
+offset_bottom = 208.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_pm7he")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ruc3t")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ruc3t")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ruc3t")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ruc3t")
+text = "Shoot"
+script = ExtResource("4_xlehx")
+
+[connection signal="pressed" from="Control/Action2" to="Control/Action2" method="_on_pressed"]
+[connection signal="pressed" from="Control/Move" to="Control/Move" method="_on_pressed"]
+[connection signal="pressed" from="Control/Shoot" to="Control/Shoot" method="_on_pressed"]
