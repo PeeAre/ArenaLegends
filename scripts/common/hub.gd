@@ -8,7 +8,7 @@ var menu: Menu = null
 var camera: Camera = null
 var player: Player = null
 var tile_size: Vector3 = Vector3.ZERO
-var palyer_spawn_position: Vector3 = Vector3(7, 0.2, 4)
+var palyer_spawn_position: Vector3 = Vector3(7, 0.5, 4)
 
 func init_this_fucking_world(main: Main) -> void:
 	self.arena = main.get_node("Arena")

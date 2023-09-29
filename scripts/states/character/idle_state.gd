@@ -1,36 +1,44 @@
 extends CharacterState
 class_name IdleState
 
-func _init(character: Character) -> void:
-	self.character = character
-	character.add_child(self)
-	animation_name = character.animation_names.get("idle")
-	character.animation.get_animation(animation_name).loop_mode = Animation.LOOP_LINEAR
-	character.animation.play(animation_name)
+const ANIMATION_KEY = "idle"
+const ANIMATION_LOOP_MODE = Animation.LOOP_LINEAR
+
+
+func _init(character: Character, target_position: Vector3 = character.position,
+		direction_to_target: Vector3 = Vector3.ZERO) -> void:
+	super(character, ANIMATION_KEY, ANIMATION_LOOP_MODE,
+			target_position, direction_to_target)
 
 func _physics_process(_delta):
-	if character.deg_cos >= -0.98 && character.deg_cos <= 0.98 || character.deg_cos == 1:
-		character.body.transform.basis = Basis(Quaternion(character.body.transform.basis)
-			.slerp(Quaternion(Basis
-			.looking_at(character.direction_to_target, Vector3.UP)), 4 * _delta))
-		character.deg_cos = character.body.transform.basis.z.normalized().dot(character.direction_to_target.normalized())
-	elif character.deg_cos != -1:
-		character.body.transform.basis = character.body.transform.basis.looking_at(character.direction_to_target, Vector3.UP)
-		character.deg_cos = character.body.transform.basis.z.normalized().dot(character.direction_to_target.normalized())
-		run()
+	var is_not_looking_at_target = direction_to_target_cos >= -0.98 \
+			&& direction_to_target_cos <= 0.98 \
+			|| direction_to_target_cos >= 1
+	var is_not_in_target_position = direction_to_target_cos >= -1 \
+			&& character.body.global_position * Vector3(1, 0, 1) != target_position
+	
+	if is_not_looking_at_target:
+		turn(_delta)
+	elif is_not_in_target_position:
+		to_run()
 
-func walk() -> void:
-	pass
-
-func run() -> void:
+func to_run() -> void:
+	character.body.transform.basis = character.body.transform.basis.looking_at(direction_to_target, Vector3.UP)
+	direction_to_target_cos = character.body.transform.basis.z.normalized().dot(direction_to_target.normalized())
 	character.remove_child(self)
-	character.state = RunState.new(character)
+	character.state = RunState.new(character, target_position, direction_to_target)
 
-func shoot() -> void:
+func to_shoot() -> void:
 	pass
 
-func die() -> void:
+func to_hit() -> void:
 	pass
 
-func hit() -> void:
+func to_die() -> void:
 	pass
+
+func turn(delta: float) -> void:
+	character.body.transform.basis = Basis(Quaternion(character.body.transform.basis)
+		.slerp(Quaternion(Basis
+		.looking_at(direction_to_target, Vector3.UP)), 4 * delta))
+	direction_to_target_cos = character.body.transform.basis.z.normalized().dot(direction_to_target.normalized())
