@@ -5,7 +5,7 @@ const ANIMATION_KEY = "run"
 const ANIMATION_LOOP_MODE = Animation.LOOP_LINEAR
 
 
-func _init(character: Character, target_position: Vector3 = character.position,
+func _init(character: Character, target_position: Vector3 = character.position * Vector3(1, 0, 1),
 		direction_to_target: Vector3 = Vector3.ZERO) -> void:
 	character.body.velocity.x = character.body.transform.basis.z.normalized().x * 32 * Hub.arena.playerSpeed * 0.01
 	character.body.velocity.z = character.body.transform.basis.z.normalized().z * 32 * Hub.arena.playerSpeed * 0.01

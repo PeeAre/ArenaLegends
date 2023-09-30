@@ -20,5 +20,5 @@ offset_right = 480.0
 offset_bottom = 336.0
 text = "Exit"
 
-[connection signal="pressed" from="Start" to="." method="_if_signal_menu_start_pressed"]
-[connection signal="pressed" from="Exit" to="." method="_if_signal_menu_exit_pressed"]
+[connection signal="pressed" from="Start" to="." method="_if_signal_start_pressed"]
+[connection signal="pressed" from="Exit" to="." method="_if_signal_exit_pressed"]

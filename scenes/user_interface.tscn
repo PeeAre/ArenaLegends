@@ -29,7 +29,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ju2ri")
 
-[node name="Action" type="Button" parent="."]
+[node name="Action" type="Button" parent="." groups=["game_mode_buttons"]]
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
@@ -37,7 +37,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_voo8n")
 text = "Action"
 script = ExtResource("1_h1ueg")
 
-[node name="Move" type="Button" parent="."]
+[node name="Move" type="Button" parent="." groups=["game_mode_buttons"]]
 layout_mode = 0
 offset_top = 72.0
 offset_right = 64.0
@@ -50,7 +50,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_hnkfc")
 text = "Move"
 script = ExtResource("2_jx8o5")
 
-[node name="Shoot" type="Button" parent="."]
+[node name="Shoot" type="Button" parent="." groups=["game_mode_buttons"]]
 layout_mode = 0
 offset_top = 144.0
 offset_right = 64.0
@@ -69,6 +69,18 @@ offset_left = 538.0
 offset_top = 3.0
 offset_right = 666.0
 offset_bottom = 35.0
-text = "Planing stage"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="GameMode" type="Label" parent="."]
+layout_mode = 0
+offset_left = 538.0
+offset_top = 3.0
+offset_right = 666.0
+offset_bottom = 35.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Action" to="." method="_if_signal_action_pressed" binds= ["Action"]]
+[connection signal="pressed" from="Move" to="." method="_if_signal_move_pressed" binds= ["Move"]]
+[connection signal="pressed" from="Shoot" to="." method="_if_signal_shoot_pressed" binds= ["Shoot"]]

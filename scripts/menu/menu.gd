@@ -24,8 +24,8 @@ func _process(delta) -> void:
 func _if_signal_pause_button_pressed() -> void:
 	is_pause_mode = !is_pause_mode
 
-func _if_signal_menu_start_pressed():
+func _if_signal_start_pressed():
 	is_pause_mode = false
 
-func _if_signal_menu_exit_pressed():
+func _if_signal_exit_pressed():
 	get_tree().quit()

@@ -21,6 +21,10 @@ InputHandler="*res://scripts/common/input_handler.gd"
 Hub="*res://scripts/common/hub.gd"
 EventBus="*res://scripts/common/event_bus.gd"
 
+[display]
+
+window/size/mode=3
+
 [editor]
 
 version_control/plugin_name="GitPlugin"

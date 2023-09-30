@@ -5,8 +5,8 @@ const ANIMATION_KEY = "idle"
 const ANIMATION_LOOP_MODE = Animation.LOOP_LINEAR
 
 
-func _init(character: Character, target_position: Vector3 = character.position,
-		direction_to_target: Vector3 = Vector3.ZERO) -> void:
+func _init(character: Character, target_position: Vector3 = character.position * Vector3(1, 0, 1),
+		direction_to_target: Vector3 = Vector3.FORWARD) -> void:
 	super(character, ANIMATION_KEY, ANIMATION_LOOP_MODE,
 			target_position, direction_to_target)
 
