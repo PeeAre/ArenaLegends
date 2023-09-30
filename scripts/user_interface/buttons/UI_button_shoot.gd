@@ -11,7 +11,7 @@ func _ready() -> void:
 	add_theme_stylebox_override("disabled", theme_stylebox)
 	add_theme_stylebox_override("focus", theme_stylebox)
 
-func _on_pressed():
+func _pressed():
 	is_active = not is_active
 	
 	if is_active:

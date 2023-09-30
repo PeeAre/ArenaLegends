@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://di6ohpro7p3kh"]
+[gd_scene load_steps=5 format=3 uid="uid://di6ohpro7p3kh"]
 
 [ext_resource type="Script" path="res://scripts/main/main.gd" id="1_1nnq0"]
-[ext_resource type="PackedScene" uid="uid://bopyxrp2it2l1" path="res://scenes/arena.tscn" id="1_k7h3g"]
+[ext_resource type="PackedScene" uid="uid://syq1se7pe3pw" path="res://scenes/arena.tscn" id="1_k7h3g"]
 [ext_resource type="PackedScene" uid="uid://b61v0kpr1041y" path="res://scenes/menu.tscn" id="2_2i0vp"]
+[ext_resource type="PackedScene" uid="uid://f722yhyfucv8" path="res://scenes/user_interface.tscn" id="4_smccr"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_1nnq0")
@@ -10,3 +11,5 @@ script = ExtResource("1_1nnq0")
 [node name="Arena" parent="." instance=ExtResource("1_k7h3g")]
 
 [node name="Menu" parent="." instance=ExtResource("2_2i0vp")]
+
+[node name="UserInterface" parent="." instance=ExtResource("4_smccr")]

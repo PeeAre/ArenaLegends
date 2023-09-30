@@ -1,0 +1,74 @@
+[gd_scene load_steps=12 format=3 uid="uid://f722yhyfucv8"]
+
+[ext_resource type="Script" path="res://scripts/user_interface/buttons/UI_button_action.gd" id="1_h1ueg"]
+[ext_resource type="Script" path="res://scripts/user_interface/user_interface.gd" id="1_ju2ri"]
+[ext_resource type="Script" path="res://scripts/user_interface/buttons/UI_button_move.gd" id="2_jx8o5"]
+[ext_resource type="Script" path="res://scripts/user_interface/buttons/UI_button_shoot.gd" id="3_reb6g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_voo8n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6xhph"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kqe4o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0r2rj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hnkfc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_756v2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eumlj"]
+
+[node name="UserInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ju2ri")
+
+[node name="Action" type="Button" parent="."]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_voo8n")
+text = "Action"
+script = ExtResource("1_h1ueg")
+
+[node name="Move" type="Button" parent="."]
+layout_mode = 0
+offset_top = 72.0
+offset_right = 64.0
+offset_bottom = 136.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_6xhph")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kqe4o")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_0r2rj")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hnkfc")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hnkfc")
+text = "Move"
+script = ExtResource("2_jx8o5")
+
+[node name="Shoot" type="Button" parent="."]
+layout_mode = 0
+offset_top = 144.0
+offset_right = 64.0
+offset_bottom = 208.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_756v2")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_eumlj")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_eumlj")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_eumlj")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_eumlj")
+text = "Shoot"
+script = ExtResource("3_reb6g")
+
+[node name="GameStage" type="Label" parent="."]
+layout_mode = 0
+offset_left = 538.0
+offset_top = 3.0
+offset_right = 666.0
+offset_bottom = 35.0
+text = "Planing stage"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -7,10 +7,18 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_ujdlw")
 
-[node name="Exit" type="Button" parent="."]
+[node name="Start" type="Button" parent="."]
 layout_mode = 0
 offset_right = 480.0
 offset_bottom = 160.0
+text = "Start"
+
+[node name="Exit" type="Button" parent="."]
+layout_mode = 0
+offset_top = 176.0
+offset_right = 480.0
+offset_bottom = 336.0
 text = "Exit"
 
-[connection signal="pressed" from="Exit" to="." method="_if_signal_exit_pressed"]
+[connection signal="pressed" from="Start" to="." method="_if_signal_menu_start_pressed"]
+[connection signal="pressed" from="Exit" to="." method="_if_signal_menu_exit_pressed"]
