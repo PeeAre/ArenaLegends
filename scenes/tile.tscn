@@ -12,7 +12,8 @@ resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("1_6xbi6")
 shader_parameter/hovered = false
-shader_parameter/selected = false
+shader_parameter/to_move = null
+shader_parameter/to_shoot = null
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_07qj4"]
 size = Vector3(1, 0.2, 1)

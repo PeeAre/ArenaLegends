@@ -23,7 +23,17 @@ func _if_mouse_hovered(area_id: int):
 
 func _if_signal_object_selected(area_id: int):
 	if area_collider_id == area_id:
-		material.set("shader_parameter/selected", true)
+		if Hub.game_mode == Hub.GameMode.MOVING:
+			material.set("shader_parameter/to_move", true)
+		else:
+			material.set("shader_parameter/to_shoot", true)
+		
 		EventBus.tile_selected.emit(position)
 	else:
-		material.set("shader_parameter/selected", false)
+		if Hub.game_mode == Hub.GameMode.MOVING:
+			material.set("shader_parameter/to_move", false)
+		elif Hub.game_mode == Hub.GameMode.SHOOTING:
+			material.set("shader_parameter/to_shoot", false)
+		else:
+			material.set("shader_parameter/to_move", false)
+			material.set("shader_parameter/to_shoot", false)

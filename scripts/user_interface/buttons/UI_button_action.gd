@@ -6,6 +6,7 @@ var theme_stylebox: StyleBox = null
 
 func _ready() -> void:
 	disabled = true
+	EventBus.activate_action_button.connect(_if_signal_activate_action_button)
 	theme_stylebox = get_theme_stylebox("normal")
 	theme_stylebox.bg_color = Color(0.4, 0.4, 0.4)
 	add_theme_stylebox_override("normal", theme_stylebox)
@@ -20,7 +21,6 @@ func _pressed():
 	else:
 		theme_stylebox.bg_color = Color("4b40cb")
 		size = Vector2(240, 64)
-		Hub.game_mode = Hub.GameMode.MOVING
 		is_active = true
 	
 	add_theme_stylebox_override("normal", theme_stylebox)
@@ -33,3 +33,6 @@ func disable() -> void:
 	theme_stylebox.bg_color = Color(0.4, 0.4, 0.4)
 	size = Vector2(64, 64)
 	is_active = false
+
+func _if_signal_activate_action_button() -> void:
+	disabled = false

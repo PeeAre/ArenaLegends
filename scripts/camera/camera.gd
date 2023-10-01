@@ -28,6 +28,10 @@ func _process(delta):
 	emit_mouse_hovered()
 
 func emit_mouse_hovered() -> void:
+	if Hub.game_mode != Hub.GameMode.MOVING && \
+			Hub.game_mode != Hub.GameMode.SHOOTING:
+		return
+	
 	set_area_ray_collided_with()
 	var collision_result: Dictionary = area_ray_collided_with
 

@@ -3,6 +3,7 @@ class_name Player
 
 func _ready() -> void:
 	expected_signals["tile_selected"] = _if_signal_tile_selected
+	expected_signals["action_mode_enabled"] = _if_signal_action_mode_enabled
 	animation_names = {
 		"idle": "Idle",
 		"run": "Running_A",
@@ -16,6 +17,13 @@ func _ready() -> void:
 	state = IdleState.new(self)
 
 func _if_signal_tile_selected(target_position: Vector3) -> void:
-	state.target_position = target_position
-	state.direction_to_target = (body.global_position - target_position) * Vector3(1, 0, 1)
+	state.action_stack[Hub.game_mode] = target_position
+	
+	if state.action_stack.has(Hub.GameMode.SHOOTING):
+		EventBus.activate_action_button.emit()
+
+func _if_signal_action_mode_enabled() -> void:
+	state.actions_order.append_array(state.action_stack.keys())
+	state.target_position = state.action_stack[state.actions_order.front()]
+	state.direction_to_target = (body.global_position - state.action_stack[state.actions_order.front()]) * Vector3(1, 0, 1)
 	state.direction_to_target_cos = body.transform.basis.z.normalized().dot(state.direction_to_target.normalized())

@@ -19,7 +19,6 @@ func _pressed():
 	else:
 		theme_stylebox.bg_color = Color("4b40cb")
 		size = Vector2(240, 64)
-		Hub.game_mode = Hub.GameMode.MOVING
 		is_active = true
 	
 	add_theme_stylebox_override("normal", theme_stylebox)

@@ -7,9 +7,11 @@ signal mouse_button_pressed(button: int)
 signal device_moved(direction: Vector2i)
 signal device_scrolled(action: String)
 signal pause_button_pressed()
+signal pending_mode_enabled()
 signal action_mode_enabled()
 signal moving_mode_enabled()
 signal shooting_mode_enabled()
+signal activate_action_button()
 
 func get_all_signals() -> Array[Signal]:
 	var signals: Array[Signal] = []

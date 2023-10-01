@@ -1,11 +1,14 @@
 extends Node
 
-enum GameStage {PLANING, ACTION, PENDING}
-enum GameMode {MOVING, SHOOTING, ACTION}
+enum GameMode {PENDING, MOVING, SHOOTING, ACTION}
 
-var game_stage: GameStage = GameStage.PLANING
-var game_mode: GameMode = GameMode.MOVING:
+var game_mode: GameMode = GameMode.PENDING:
 	set(value):	#this function is called when a variable is changed from external code
+		if value == GameMode.ACTION:
+			EventBus.action_mode_enabled.emit()
+		elif value == GameMode.PENDING:
+			EventBus.pending_mode_enabled.emit()
+			EventBus.object_selected.emit(0)
 		game_mode = value
 var environment_manager: EnvironmentManager = null
 var entities: Array[Entity] = []
