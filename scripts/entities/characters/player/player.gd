@@ -11,8 +11,8 @@ func _ready() -> void:
 		"hit": "Hit_A",
 		"die": "Death_B"
 	}
-	animation = $AnimationPlayer
-	body = $Body
+	animation = $AnimationPlayer as AnimationPlayer
+	body = $Body as Node3D
 	position = Hub.palyer_spawn_position
 	state = IdleState.new(self)
 
@@ -24,6 +24,7 @@ func _if_signal_tile_selected(target_position: Vector3) -> void:
 
 func _if_signal_action_mode_enabled() -> void:
 	state.actions_order.append_array(state.action_stack.keys())
+	print("in player: ", state.actions_order)
 	state.target_position = state.action_stack[state.actions_order.front()]
 	state.direction_to_target = (body.global_position - state.action_stack[state.actions_order.front()]) * Vector3(1, 0, 1)
-	state.direction_to_target_cos = body.transform.basis.z.normalized().dot(state.direction_to_target.normalized())
+	state.is_looking_at_target = body.transform.basis.z.normalized().dot(state.direction_to_target.normalized()) == -1

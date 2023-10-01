@@ -26,4 +26,6 @@ func to_die() -> void:
 
 func _if_signal_shooting_finished(animation_name: String) -> void:
 	actions_order.pop_front()
+	prints("in shoot: ", character.animation, " ", actions_order)
+	character.animation.animation_finished.disconnect(_if_signal_shooting_finished)
 	to_idle()

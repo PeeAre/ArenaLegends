@@ -16,6 +16,7 @@ func _physics_process(_delta) -> void:
 	
 	if is_in_target_position:
 		actions_order.pop_front()
+		print("in run: ", actions_order)
 		to_idle()
 	
 	character.body.move_and_slide()
