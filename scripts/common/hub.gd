@@ -5,9 +5,9 @@ enum GameMode {PENDING, MOVING, SHOOTING, ACTION}
 var game_mode: GameMode = GameMode.PENDING:
 	set(value):	#this function is called when a variable is changed from external code
 		if value == GameMode.ACTION:
-			EventBus.action_mode_enabled.emit()
+			EventBus.game_mode_changed.emit(GameMode.ACTION)
 		elif value == GameMode.PENDING:
-			EventBus.pending_mode_enabled.emit()
+			EventBus.game_mode_changed.emit(GameMode.PENDING)
 			EventBus.object_selected.emit(0)
 		game_mode = value
 var environment_manager: EnvironmentManager = null

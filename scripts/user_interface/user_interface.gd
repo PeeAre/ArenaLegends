@@ -14,8 +14,7 @@ var is_shooting_mode_active: bool = false
 func _ready() -> void:
 	var game_mode_label_position: Vector2 = Vector2(get_window().size.x / 2 - $GameMode.size.x / 2, get_window().size.y / 12 - $GameMode.size.y / 2)
 	$GameMode.position = game_mode_label_position
-	EventBus.action_mode_enabled.connect(_if_signal_action_mode_enabled)
-	EventBus.pending_mode_enabled.connect(_if_signal_pending_mode_enabled)
+	EventBus.game_mode_changed.connect(_if_signal_game_mode_changed)
 	set_game_mode_label_title()
 
 func _process(_delta):
@@ -59,12 +58,13 @@ func _if_signal_move_pressed(name: String):
 func _if_signal_shoot_pressed(name: String):
 	switch_mode(name)
 
-func _if_signal_action_mode_enabled() -> void:
-	$Action.disabled = true
-	$Move.disabled = true
-	$Shoot.disabled = true
-
-func _if_signal_pending_mode_enabled() -> void:
-	$Move.disabled = false
-	$Shoot.disabled = false
-	disable_buttons()
+func _if_signal_game_mode_changed(game_mode: Hub.GameMode) -> void:
+	match game_mode:
+		Hub.GameMode.ACTION:
+			$Action.disabled = true
+			$Move.disabled = true
+			$Shoot.disabled = true
+		Hub.GameMode.PENDING:
+			$Move.disabled = false
+			$Shoot.disabled = false
+			disable_buttons()
