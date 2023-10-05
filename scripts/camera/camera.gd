@@ -28,6 +28,10 @@ func _process(delta):
 	emit_mouse_hovered()
 
 func emit_mouse_hovered() -> void:
+	if Hub.game_mode != Hub.GameMode.MOVING && \
+			Hub.game_mode != Hub.GameMode.SHOOTING:
+		return
+	
 	set_area_ray_collided_with()
 	var collision_result: Dictionary = area_ray_collided_with
 
@@ -88,15 +92,3 @@ func _if_signal_mouse_button_pressed(button: int) -> void:
 				if hovered_area_id != prev_pressed_area_id:
 					prev_pressed_area_id = hovered_area_id
 					EventBus.object_selected.emit(hovered_area_id)
-
-#func signalize_mouse_button_pressed(event: InputEventMouseButton) -> void:
-#	if !area_ray_collided_with.is_empty():
-#		if event.is_action_pressed("left_mouse_button"):
-#			var hovered_area_id = area_ray_collided_with["collider_id"]
-#			if hovered_area_id != prev_pressed_area_id:
-#				prev_pressed_area_id = hovered_area_id
-#				EventBus.mouse_left_pressed.emit(hovered_area_id)
-#			else:
-#				prev_pressed_area_id = 0
-#				EventBus.mouse_left_pressed.emit(prev_pressed_area_id)
-#				EventBus.mouse_hovered.emit(hovered_area_id)
