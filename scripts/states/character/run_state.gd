@@ -11,15 +11,17 @@ func _init(character: Character, old_character_state: CharacterState = null) -> 
 	super(character, ANIMATION_KEY, ANIMATION_LOOP_MODE, old_character_state)
 
 func _physics_process(_delta) -> void:
-	var is_in_target_position: bool = abs((character.body.global_position \
-			* Vector3(1, 0, 1) - target_position).length()) <= 0.1
-	
-	if is_in_target_position:
-		actions_order.pop_front()
-		print("in run: ", actions_order)
-		to_idle()
-	
-	character.body.move_and_slide()
+	if character.is_multiplayer_authority():
+		var is_in_target_position: bool = abs((character.body.global_position \
+				* Vector3(1, 0, 1) - target_position).length()) <= 0.1
+		
+		if is_in_target_position:
+			actions_order.pop_front()
+			print("in run: ", actions_order)
+			to_idle()
+		
+		character.body.move_and_slide()
+		character.rpc("remote_set_position", character.body.global_position)
 
 func to_idle() -> void:
 	character.body.global_position.x = target_position.x

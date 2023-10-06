@@ -1,8 +1,8 @@
+extends Node
 class_name EnvironmentManager
 
-var tile_scene: PackedScene = preload("res://scenes/tile.tscn")
 var camera_scene: PackedScene = preload("res://scenes/camera.tscn")
-var player_scene: PackedScene = preload("res://scenes/player.tscn")
+var tile_scene: PackedScene = preload("res://scenes/tile.tscn")
 var tile_size: Vector3 = Vector3.ZERO
 var grid_size: Vector2i = Vector2i.ZERO
 var tile_dict: Dictionary = {}
@@ -15,8 +15,12 @@ func _init() -> void:
 
 func initialize_enironment() -> void:
 	create_field()
-	spawn_player()
 	create_camera()
+
+func create_camera() -> void:
+	var camera: Camera = camera_scene.instantiate()
+	Hub.arena.add_child(camera)
+	Hub.camera = camera
 
 func create_field() -> void:
 	var coordinates: Vector2 = Vector2.ZERO
@@ -28,13 +32,3 @@ func create_field() -> void:
 			Hub.arena.add_child(tile)
 			tile_dict[tile] = Vector2(x, y)
 			tile.translate(Vector3(x, 0, y))
-
-func create_camera() -> void:
-	var camera: Camera = camera_scene.instantiate()
-	Hub.arena.add_child(camera)
-	Hub.camera = camera
-
-func spawn_player() -> void:
-	var player: Player = player_scene.instantiate()
-	Hub.arena.add_child(player)
-	Hub.player = player

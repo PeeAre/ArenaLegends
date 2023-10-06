@@ -15,6 +15,7 @@ func _ready() -> void:
 	body = $Body as Node3D
 	position = Hub.palyer_spawn_position
 	state = IdleState.new(self)
+	super()
 
 func _if_signal_tile_selected(target_position: Vector3) -> void:
 	state.action_stack[Hub.game_mode] = target_position
@@ -29,3 +30,11 @@ func _if_signal_game_mode_changed(game_mode: Hub.GameMode) -> void:
 		state.target_position = state.action_stack[state.actions_order.front()]
 		state.direction_to_target = (body.global_position - state.action_stack[state.actions_order.front()]) * Vector3(1, 0, 1)
 		state.is_looking_at_target = body.transform.basis.z.normalized().dot(state.direction_to_target.normalized()) == -1
+
+@rpc("any_peer", "unreliable_ordered")
+func remote_set_basis(authority_basis):
+	body.transform.basis = authority_basis
+
+@rpc("any_peer", "unreliable_ordered")
+func remote_set_position(global_position: Vector3):
+	body.global_position = global_position

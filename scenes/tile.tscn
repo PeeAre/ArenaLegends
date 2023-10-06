@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://dg4a4cpnf2g7c"]
+[gd_scene load_steps=10 format=3]
 
-[ext_resource type="Script" path="res://scripts/tile/tile.gd" id="1_2epi8"]
+[ext_resource type="Script" path="res://scripts/entities/tiles/tile.gd" id="1_2epi8"]
 [ext_resource type="Shader" path="res://shaders/tile/tile_grid.gdshader" id="1_6xbi6"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_mhr4j"]

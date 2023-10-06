@@ -1,11 +1,34 @@
-[gd_scene load_steps=2 format=3 uid="uid://cpr0fxpm1bqs7"]
+[gd_scene load_steps=7 format=3 uid="uid://cpr0fxpm1bqs7"]
 
 [ext_resource type="Script" path="res://scripts/menu/menu.gd" id="1_ujdlw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ktgyl"]
+bg_color = Color(0.905882, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3hfo8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ju03g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fbsve"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iopgr"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_ujdlw")
+
+[node name="Host" type="CheckButton" parent="."]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 64.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_ktgyl")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_3hfo8")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ju03g")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fbsve")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_iopgr")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_iopgr")
+text = "Host"
 
 [node name="Start" type="Button" parent="."]
 layout_mode = 0
@@ -20,5 +43,6 @@ offset_right = 480.0
 offset_bottom = 336.0
 text = "Exit"
 
+[connection signal="toggled" from="Host" to="." method="_if_signal_host_toggled"]
 [connection signal="pressed" from="Start" to="." method="_if_signal_start_pressed"]
 [connection signal="pressed" from="Exit" to="." method="_if_signal_exit_pressed"]

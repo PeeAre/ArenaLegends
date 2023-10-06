@@ -11,6 +11,7 @@ func _ready():
 	expected_signals["object_selected"] = _if_signal_object_selected
 	area_collider_id = ($AreaMesh/AreaCollider as Area3D).get_instance_id()
 	material = ($AreaMesh as MeshInstance3D).get_active_material(0)
+	super()
 
 func get_size() -> Vector3:
 	return ($Body/BodyMesh as MeshInstance3D).get_aabb().size

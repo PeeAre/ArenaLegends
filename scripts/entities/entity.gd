@@ -4,6 +4,9 @@ class_name Entity
 var expected_signals: Dictionary = {}
 
 
+func _ready() -> void:
+	subscribe()
+
 func subscribe() -> void:
 	if !expected_signals.is_empty():
 		for sig in EventBus.get_all_signals():

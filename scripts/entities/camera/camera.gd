@@ -15,13 +15,14 @@ func _ready() -> void:
 	expected_signals["device_scrolled"] = _if_signal_device_scrolled
 	expected_signals["mouse_button_pressed"] = _if_signal_mouse_button_pressed
 	camera = $Camera3D as Camera3D
-	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+#	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	rotate_y(PI/4)
 	camera.rotate_x(-PI/4)
-	position = Hub.player.position * Vector3(1, 0, 1)
+	position = Vector3(4, 0, 4)
 	camera.position.x = 0
 	camera.position.z = pow(Hub.arena.distanceFromTarget, 0.5)
-	camera.position.y = pow(Hub.arena.distanceFromTarget, 0.5) + Hub.player.position.y
+	camera.position.y = pow(Hub.arena.distanceFromTarget, 0.5) + 0.5
+	super()
 
 func _process(delta):
 	move(delta)
