@@ -4,17 +4,18 @@ class_name Player
 func _ready() -> void:
 	expected_signals["tile_selected"] = _if_signal_tile_selected
 	expected_signals["game_mode_changed"] = _if_signal_game_mode_changed
-	animation_names = {
-		"idle": "Idle",
-		"run": "Running_A",
-		"shoot": "1H_Ranged_Shoot",
-		"hit": "Hit_A",
-		"die": "Death_B"
-	}
 	animation = $AnimationPlayer as AnimationPlayer
 	body = $Body as Node3D
 	position = Hub.palyer_spawn_position
-	state = IdleState.new(self)
+	var animation_names = {
+		CharacterStateMachine.IDLE_KEY: "Idle",
+		CharacterStateMachine.RUN_KEY: "Running_A",
+		CharacterStateMachine.SHOOT_KEY: "1H_Ranged_Shoot",
+		"hit": "Hit_A",
+		"die": "Death_B"
+	}
+	var movement = CharacterMovement.new(body)
+	state_machine = CharacterStateMachine.new(animation_names, movement, animation)
 
 func _if_signal_tile_selected(target_position: Vector3) -> void:
 	state.action_stack[Hub.game_mode] = target_position

@@ -2,3 +2,4 @@
 addons/
 build/
 *.import
+.idea/
