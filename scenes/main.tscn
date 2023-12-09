@@ -8,9 +8,9 @@
 [node name="Main" type="Node3D"]
 script = ExtResource("1_1nnq0")
 
+[node name="Menu" parent="." instance=ExtResource("2_2i0vp")]
+
 [node name="Arena" parent="." instance=ExtResource("1_k7h3g")]
 scrollRange = Vector2(3, 5)
-
-[node name="Menu" parent="." instance=ExtResource("2_2i0vp")]
 
 [node name="UserInterface" parent="." instance=ExtResource("4_smccr")]
